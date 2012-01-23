@@ -1,0 +1,84 @@
+body {
+    font-family: Arial;
+    overflow: hidden;
+}
+
+#people {
+    border-collapse: collapse;
+    border-top: 1px solid #212121;
+    border-left: 1px solid #212121;
+}
+
+#people th {
+    background: linear-gradient(center top, #2BB6ED 0%, #4585A5 100%) repeat scroll 0 0 transparent;
+    border-right: 1px solid #212121;
+    border-bottom: 1px solid #212121;
+    font-size: 20px;
+    padding: 5px 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #E1E1E1;
+}
+
+#people td {
+    border-right: 1px solid #212121;
+    border-bottom: 1px solid #212121;
+    padding: 4px 8px 5px;
+    text-align: center;
+}
+
+#people td.name {
+    text-align: left;
+}
+
+#menu {
+    border: 1px solid black;
+    border-radius: 12px;
+    border-right: 0;
+    height: 38px;
+    overflow: hidden;
+    position: absolute;
+    right: -180px;
+    top: 2em;
+    transition-property: height, right, width;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    width: 300px;
+}
+
+#menu h1 {
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    padding: 4px 30px 6px;
+    margin: 0;
+}
+
+#menu .arrow {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid white;
+    cursor: pointer;
+    height: 0;
+    left: 10px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+#menu.show {
+    height: 20em;
+    right: -20px;
+}
+
+#menu.show h1 {
+    border-bottom-left-radius: 0;
+}
+
+#menu.show .arrow {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+    left: 6px;
+    top: 14px;
+}

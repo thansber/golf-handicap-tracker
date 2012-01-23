@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>Golf Handicap Tracker</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <link type="text/css" rel="stylesheet" href="css/main.css"/>
+  <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
+  <script type="text/javascript" data-main="js/main" src="js/lib/require-jquery-min.js"></script>
+  <script type="text/javascript">
+  require.config({
+    baseUrl:"js"
+  });
+  </script>
+</head>
+<body>
+
+<table id="people"></table>
+
+<section id="menu">
+  <h1>MENU</h1>
+  <div class="arrow left"></div>
+  
+  <ul class="options">
+    <li class="dates">Dates</li>
+  </ul>
+</section>
+
+<section id="dialog">
+  <section class="dates">
+    <h1>Dates</h1>
+    <div class="content">
+      <label for="newDateMonth">Add a new date:</label>
+      <select id="newDateMonth"><option value="">-- Month --</option></select>
+      <select id="newDateDay"><option value="">-- Day --</option></select>
+      <button class="save date">Save</button>
+    </div>
+  </section>
+</section>
+
+</body>
+</html>
