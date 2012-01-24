@@ -1,18 +1,32 @@
 body {
     font-family: Arial;
+    margin: 0;
     overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+#version {
+    font-size: 0.7em;
+    position: absolute;
+    right: 1em;
+    top: 1.2em;
 }
 
 #people {
     border-collapse: collapse;
     border-top: 1px solid #212121;
     border-left: 1px solid #212121;
+    margin-top: 2em;
 }
 
 #people th {
     background: linear-gradient(center top, #2BB6ED 0%, #4585A5 100%) repeat scroll 0 0 transparent;
     border-right: 1px solid #212121;
     border-bottom: 1px solid #212121;
+    color: #333;
     font-size: 20px;
     padding: 5px 10px;
     text-align: left;
@@ -34,15 +48,16 @@ body {
     border: 1px solid black;
     border-radius: 12px;
     border-right: 0;
-    height: 38px;
+    height: 34px;
     overflow: hidden;
     position: absolute;
     right: -180px;
-    top: 2em;
+    top: 2.5em;
     transition-property: height, right, width;
     transition-duration: 0.5s;
     transition-timing-function: ease;
     width: 300px;
+    z-index: 2;
 }
 
 #menu h1 {
@@ -50,7 +65,7 @@ body {
     border-radius: 10px;
     color: white;
     cursor: pointer;
-    padding: 4px 30px 6px;
+    padding: 5px 30px;
     margin: 0;
 }
 
@@ -64,6 +79,14 @@ body {
     position: absolute;
     top: 8px;
     width: 0;
+}
+
+#menu .options {
+    background-color: white;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0.8em;
 }
 
 #menu.show {
@@ -81,4 +104,107 @@ body {
     border-top: 10px solid white;
     left: 6px;
     top: 14px;
+}
+
+#dialogs {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#dialogs .background {
+    background-color: black;
+    height: 100%;
+    left: 0;
+    opacity: 0.85;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+#dialogs .dialog {
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+    width: 90%;
+    z-index: 3;
+}
+
+#dialogs h1 {
+    background: -webkit-linear-gradient(#16568F, #4BB7E8);
+    background: linear-gradient(#16568F, #4BB7E8);
+    border: 2px solid #333333;
+    border-bottom: 0;
+    border-top: 0;
+    color: #FFF;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.4em 1em;
+}
+
+#dialogs .content {
+    background-color: white;
+    border: 2px solid #333333;
+    border-top: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 1em 0 0 1em;
+}
+
+#dialogs button {
+    border-radius: 12px;
+    box-shadow: 0px 2px 2px #666666;
+    color: #F0F0F0;
+    padding: 2px 8px 3px;
+    position: relative;
+    text-shadow: 2px 2px 3px #111111;
+}
+
+#dialogs button:active {
+    top: 1px;
+}
+
+#dialogs button.delete {
+    background: linear-gradient(center top, #DF3336 0%, #BF3235 100%) repeat scroll 0 0 transparent;
+    border: 2px solid #952B2C;
+}
+
+#dialogs button.save {
+    background: linear-gradient(center top, #5D9C46 0%, #3D6832 100%) repeat scroll 0 0 transparent;
+    border: 2px solid #225726;
+}
+
+#dialogs .dates label {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+#dialogs .dates .option {
+    margin: 0;
+    padding-bottom: 1.5em;
+}
+
+#dialogs .dates .option:not(:first-child) {
+    border-top: 1px solid #666666;
+    padding-top: 1.5em;
+}
+
+#dialogs .dates button {
+    margin-left: 1.5em;
+}
+
+#dialogs .dates .message {
+    margin-left: 1em;
+    position: relative;
+    top: 2px;
+}
+
+#dialogs .dates .save.message {
+    color: #3D6832;
+}
+
+#dialogs .dates .delete.message {
+    color: #BF3235;
 }

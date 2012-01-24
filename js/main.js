@@ -1,17 +1,11 @@
 require(
-["jquery", "architect", "io", "settings"], 
-function($, Architect, IO, Settings) {
+["jquery", "architect", "handlers", "settings"], 
+function($, Architect, Handlers, Settings) {
     $(document).ready(function() {
       Settings.init();
       Architect.init();
   
-      $("#menu").click(function() {
-        $(this).toggleClass("show");
-      });
-      
-      $("#newDateMonth").change(function() {
-        Architect.populateDays();
-      });
+      Handlers.init();
       
       Architect.build({clear:true});
     });

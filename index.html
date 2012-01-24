@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<div id="version">v0.1</div>
 <table id="people"></table>
 
 <section id="menu">
@@ -24,14 +25,24 @@
   </ul>
 </section>
 
-<section id="dialog">
-  <section class="dates">
+<section id="dialogs" class="hidden">
+  <div class="background"></div>
+  <section class="dates dialog">
     <h1>Dates</h1>
     <div class="content">
-      <label for="newDateMonth">Add a new date:</label>
-      <select id="newDateMonth"><option value="">-- Month --</option></select>
-      <select id="newDateDay"><option value="">-- Day --</option></select>
-      <button class="save date">Save</button>
+      <div class="option">
+        <label for="newDateMonth">Add a new date:</label>
+        <select id="newDateMonth"><option value="">-- Month --</option></select>
+        <select id="newDateDay"><option value="">-- Day --</option></select>
+        <button class="save date">Save</button>
+        <label class="save message"></label>
+      </div>
+      <div class="option">
+        <label for="deleteDate">Remove a date (will also delete all scores for this date):</label>
+        <select id="deleteDate"><option value="">-- Date --</option></select>
+        <button class="delete date">Delete</button>
+        <label class="delete message"></label>
+      </div>
     </div>
   </section>
 </section>
