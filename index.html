@@ -3,6 +3,8 @@
   <title>Golf Handicap Tracker</title>
   <meta http-equiv="X-UA-Compatible" content="IE=8" />
   <link type="text/css" rel="stylesheet" href="css/main.css"/>
+  <link type="text/css" rel="stylesheet" href="css/menu.css"/>
+  <link type="text/css" rel="stylesheet" href="css/dialogs.css"/>
   <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
   <script type="text/javascript" data-main="js/main" src="js/lib/require-jquery-min.js"></script>
   <script type="text/javascript">
@@ -13,35 +15,115 @@
 </head>
 <body>
 
-<div id="version">v0.1</div>
-<table id="people"></table>
+<div id="version">v0.2</div>
 
-<section id="menu">
-  <h1>MENU</h1>
+<section id="main">
+  <div class="dates">
+    <h1>Dates for <span id="currentYear"></span></h1>
+    <ul class="dateList"><!-- populated via Javascript --></ul>
+    <div class="actions">
+      <button class="add date">Add</button>
+      <button class="delete date">Delete</button>
+    </div>
+  </div>
+  
+  <div class="scores">
+    <h6 class="tableheader"></h6>
+    <table class="people">
+      <thead>
+        <tr>
+          <th class="name">Name</th>
+          <th class="handicap">Handicap</th>
+          <th class="index">Index</th>
+          <th class="flight">Flight</th>
+        </tr>
+      </thead>
+      <tbody><!-- populated via Javascript --></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="menu" class="displayed show">
+  <h1>Menu</h1>
   <div class="arrow left"></div>
   
   <ul class="options">
-    <li class="dates">Dates</li>
+    <li class="settings">Settings</li>
+    <li class="add date">Add date</li>
+    <li class="add person">Add person</li>
+    <li class="delete date">Delete date</li>
+    <li class="delete person">Delete person</li>
   </ul>
 </section>
 
 <section id="dialogs" class="hidden">
   <div class="background"></div>
-  <section class="dates dialog">
-    <h1>Dates</h1>
+  
+  <section class="add date dialog">
+    <h1>Add new date <a class="close">X</a></h1>
     <div class="content">
-      <div class="option">
-        <label for="newDateMonth">Add a new date:</label>
-        <select id="newDateMonth"><option value="">-- Month --</option></select>
-        <select id="newDateDay"><option value="">-- Day --</option></select>
-        <button class="save date">Save</button>
+      <p class="instructions">Select a month and day from the drop-downs, then click Save to add a new date.</p> 
+      <p class="instructions">These dates will only be added for the currently selected year, <span class="currentYear"></span>.</p>
+      
+      <select id="newDateMonth"><option value="">-- Month --</option></select>
+      <select id="newDateDay"><option value="">-- Day --</option></select>
+      <button class="save date">Save</button>
+      <label class="save message"></label>
+    </div>
+  </section>
+  
+  <section class="delete date dialog">
+    <h1>Delete date <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">Select a date from the drop-down, then click Delete.</p> 
+      <p class="instructions">The date will be removed along with all handicap and index values entered for that date,
+      but only for the currently selected year, <span class="currentYear"></span>.</p> 
+    
+      <select id="deleteDate"><option value="">-- Date --</option></select>
+      <button class="delete date">Delete</button>
+      <label class="delete message"></label>
+    </div>
+  </section>
+  
+  <section class="add person dialog">
+    <h1>Add Person <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">Enter the name of the person you wish to add, then click Save.</p> 
+    
+      <input type="text" id="newPerson" value="" />
+      <button class="save person">Save</button>
+      <label class="save message"></label>
+    </div>
+  </section>
+  
+  <section class="delete person dialog">
+    <h1>Delete Person <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">Select the name of the person you wish to delete, then click Delete.</p> 
+      <p class="instructions">All handicap and index values associated with this person will be deleted for all dates.</p> 
+    
+      <select id="deletePerson"><option value="">-- Person --</option></select>
+      <button class="delete person">Delete</button>
+      <label class="delete message"></label>
+    </div>
+  </section>
+  
+  <section class="settings dialog">
+    <h1>Settings <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">These are settings for this application that once setup, will likely not change often.</p> 
+    
+      <div class="setting">
+        <label for="selectYear">Select the year you want to use:</label>
+        <select id="selectYear"><option value="">-- Year --</option></select>
+        <button class="save year">Use this year</button>
         <label class="save message"></label>
       </div>
-      <div class="option">
-        <label for="deleteDate">Remove a date (will also delete all scores for this date):</label>
-        <select id="deleteDate"><option value="">-- Date --</option></select>
-        <button class="delete date">Delete</button>
-        <label class="delete message"></label>
+      <div class="setting">
+        <label for="numFlights">Enter the number of flights in your league:</label>
+        <input type="number" id="numFlights" value="0" />
+        <button class="save flights">Save</button>
+        <label class="save message"></label>
       </div>
     </div>
   </section>

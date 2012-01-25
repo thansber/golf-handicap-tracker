@@ -1,0 +1,75 @@
+#menu {
+    border: 2px solid #222;
+    border-radius: 14px;
+    border-right: 0;
+    height: 34px;
+    overflow: hidden;
+    position: absolute;
+    right: -1em;
+    top: 2.5em;
+    transition-property: height, right, width;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    width: 10em;
+    z-index: 2;
+}
+
+#menu h1 {
+    background: linear-gradient(#222, #555);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.4em;
+    padding: 5px 30px;
+    margin: 0;
+}
+
+#menu h1:hover {
+    background: linear-gradient(#555, #222);
+}
+
+#menu .arrow {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid white;
+    cursor: pointer;
+    height: 0;
+    left: 10px;
+    position: absolute;
+    top: 8px;
+    width: 0;
+}
+
+#menu .options {
+    background-color: white;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0.8em;
+}
+
+#menu .options li {
+    cursor: pointer;
+    font-size: 1.2em;
+    padding-bottom: 0.2em;
+}
+
+#menu .options li:hover {
+    color: #4c9335;
+}
+
+#menu.show {
+    height: 13em;
+}
+
+#menu.show h1 {
+    border-bottom-left-radius: 0;
+}
+
+#menu.show .arrow {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+    left: 6px;
+    top: 14px;
+}

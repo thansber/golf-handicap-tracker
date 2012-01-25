@@ -1,0 +1,136 @@
+#dialogs {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#dialogs .background {
+    background-color: black;
+    height: 100%;
+    left: 0;
+    opacity: 0.85;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+#dialogs h1 {
+    background: linear-gradient(#16568F, #4BB7E8);
+    border: 2px solid #333333;
+    border-bottom: 0;
+    border-top: 0;
+    color: #FFF;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.8em 0.8em 0.8em 1em;
+}
+
+#dialogs .close {
+    background: linear-gradient(#333, #666);
+    border: 2px solid #333;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px #222;
+    color: #ddd;
+    cursor: pointer;
+    float: right;
+    font-size: 0.8em;
+    margin-top: -4px;
+    padding: 4px 7px 3px;
+    position: relative;
+    text-shadow: 2px 2px 2px #111;
+    user-select: none;
+}
+
+#dialogs .close:hover {
+    background: linear-gradient(#666, #333);
+}
+
+#dialogs .close:active {
+    top: 1px;
+}
+
+#dialogs .content {
+    background-color: white;
+    border: 2px solid #333333;
+    border-top: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 1em 0 1.5em 1em;
+}
+
+#dialogs .content .instructions {
+    font-size: 0.85em;
+    margin: 0;
+    padding: 0;
+}
+
+#dialogs .content .instructions:last-of-type {
+    margin-bottom: 1.5em;
+}
+
+#dialogs button {
+    margin-left: 1.5em;
+}
+
+#dialogs .dialog {
+    height: auto;
+    margin: 0 5%;
+    position: absolute;
+    top: -20em;
+    transition-property: top;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+    width: 90%;
+    z-index: 3;
+}
+
+#dialogs .dialog.displayed {
+    top: 0;
+}
+
+#dialogs .dialog label {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+#dialogs .dialog .option {
+    margin: 0;
+    padding-bottom: 1.5em;
+}
+
+#dialogs .dialog .message {
+    margin-left: 1em;
+    position: relative;
+    top: 2px;
+}
+
+#dialogs .dialog .save.message {
+    color: #3D6832;
+}
+
+#dialogs .dialog .delete.message {
+    color: #BF3235;
+}
+
+/* ================================= */
+/* --------- People dialog --------- */
+/* ================================= */
+#dialogs .people input[type=text] {
+    width: 40%;
+}
+
+#dialogs .settings .setting {
+    margin-right: 1em;
+    padding-bottom: 1em;
+}
+
+#dialogs .settings .setting:not(:first-of-type) {
+    border-top: 1px solid #CCCCCC;
+    padding-top: 1em;
+}
+
+#dialogs .settings #numFlights {
+    width: 3em;
+}

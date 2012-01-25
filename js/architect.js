@@ -7,8 +7,9 @@ function($, IO, Settings, Util) {
   var $peopleHeader = null;
   var $peopleBody = null;
   var $deleteDateSelector = null;
+  var $deletePeopleSelector = null;
   
-  var MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   var DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   
   var appendDeleteDate = function(date, opt) {
@@ -39,7 +40,7 @@ function($, IO, Settings, Util) {
   
   var dateToString = function(rawDate) {
     var monthNum = parseInt(rawDate.substr(0, 2) - 1, 10);
-    return MONTH_NAMES[monthNum] + " " + rawDate.substr(2);
+    return MONTH_NAMES[monthNum] + " " + parseInt(rawDate.substr(2), 10);
   };
   
   var getCurrentYearData = function() {
@@ -64,10 +65,25 @@ function($, IO, Settings, Util) {
     }
   };
   
-  var rebuildBody = function(people) {
-    $peopleBody = $("<tbody></tbody>");
-    appendPeople(people);
-    $people.append($peopleBody);
+  var rebuildDateList = function() {
+    var data = getCurrentYearData();
+    var currentDate = Settings.getCurrentDate();
+    
+    $("#currentYear").empty().html(Settings.getCurrentYear());
+    var $dateList = $("#main").find(".dateList");
+    var $selectedDate = null;
+    $dateList.empty();
+    $.each(data.dates, function(i, date) {
+      var $date = $("<li>" + dateToString(date) + "</li>").data("date", date);
+      if (date === currentDate) {
+        $selectedDate = $date;
+      }
+      $dateList.append($date);
+    });
+    
+    if ($selectedDate && $selectedDate.length > 0) {
+      $selectedDate.click();
+    }
   };
   
   var rebuildDeleteDates = function(opt) {
@@ -77,21 +93,48 @@ function($, IO, Settings, Util) {
     if (opt.clear) {
       $deleteDateSelector.find("option:gt(0)").remove();
     }
+    
     $.each(data.dates, function(i, date) {
       $deleteDateSelector.append($("<option></option>").val(date).html(dateToString(date)));
     });
   };
   
-  var rebuildHeader = function(dates) {
-    var $row = $("<tr></tr>");
-    $row.append($("<th>Name</th>"));
-    $.each(dates, function(i, date) {
-      $row.append($("<th>" + dateToString(date) + "</th>"));
-    });
+  var rebuildDeletePeople = function(opt) {
+    opt = $.extend({clear:false}, opt);
+    var data = getCurrentYearData();
     
-    $peopleHeader = $("<thead></thead>");
-    $peopleHeader.append($row);
-    $people.append($peopleHeader);
+    if (opt.clear) {
+      $deletePeopleSelector.find("option:gt(0)").remove();
+    }
+    
+    var sortedNames = $.map(data.people, function(value, name) { return name; });
+    sortedNames.sort();
+    $.each(sortedNames, function(i, name) {
+      $deletePeopleSelector.append($("<option></option>").val(name).html(name));
+    })
+  };
+  
+  var rebuildScoreData = function() {
+    var data = getCurrentYearData();
+    var date = Settings.getCurrentDate();
+    var dateIndex = $.inArray(date, data.dates);
+    
+    $("#main .tableheader").empty().html(dateToString(date) + ", " + Settings.getCurrentYear());
+    
+    $peopleBody.empty();
+    
+    $.each(data.people, function(name, value) {
+      var $row = $("<tr></tr>").addClass("person");
+      var handicap = dateIndex == -1 ? "" : value.handicap[dateIndex];
+      var index = dateIndex == -1 ? "" : value.index[dateIndex];
+      var flight = dateIndex == -1 ? "" : value.flight[dateIndex];
+      $row.append($("<td class=\"name\">" + name + "</td>"));
+      $row.append($("<td class=\"handicap\">" + handicap + "</td>"));
+      $row.append($("<td class=\"index\">" + index + "</td>"));
+      $row.append($("<td class=\"flight\">" + flight + "</td>"));
+      
+      $peopleBody.append($row);
+    });
   };
   
   var setCurrentYearData = function(newData) {
@@ -102,9 +145,21 @@ function($, IO, Settings, Util) {
     return { 
       "dates":["0401","0408","0415","0422"],
       "people":{
-        "Hansberger, Debbie":{"scores":["102","109","97", ""]},
-        "Hansberger, Jerry":{"scores":["82", "", "91",""]},
-        "Cleaves, Mateen":{"scores":["", "112","134","101"]}
+        "Hansberger, Debbie":{
+          "handicap":["28","30","29","29"],
+          "index":["24.8","27.3","25.7","25.4"],
+          "flight":["2","2","2","2"]
+        },
+        "Hansberger, Jerry":{
+          "handicap":["13", "", "15",""],
+          "index":["11.2","","14.9",""],
+          "flight":["1","","2","1"]
+        },
+        "Cleaves, Mateen":{
+          "handicap":["", "35","35","35"],
+          "index":["","31.6","31.8","31.7"],
+          "flight":["3","3","3","3"]
+        }
       }
     };
   };
@@ -115,22 +170,20 @@ function($, IO, Settings, Util) {
     build : function(opt) {
       opt = $.extend({clear:false}, opt);
       
-      var data = getCurrentYearData();
-      
       if (opt.clear) {
-        $people.empty();
-        rebuildHeader(data.dates);
-        rebuildBody(data.people);
+        rebuildDateList();
+        //rebuildHeader(data.dates);
+        //rebuildBody(data.people);
       }
       
     },
     dateToString : dateToString,
     getCurrentYearData : getCurrentYearData,
     init : function() {
-      $people = $("#people");
-      $peopleHeader = $people.find("thead");
+      $people = $("#main .people");
       $peopleBody = $people.find("tbody");
       $deleteDateSelector = $("#deleteDate");
+      $deletePeopleSelector = $("#deletePerson");
       
       var $newMonths = $("#newDateMonth");
       $.each(MONTH_NAMES, function(i, monthName) {
@@ -138,9 +191,12 @@ function($, IO, Settings, Util) {
       });
       
       rebuildDeleteDates();
+      rebuildDeletePeople();
     },
     populateDays : populateDays,
     rebuildDeleteDates : rebuildDeleteDates,
+    rebuildDeletePeople : rebuildDeletePeople,
+    rebuildScoreData : rebuildScoreData,
     setCurrentYearData : setCurrentYearData
   };
 });
