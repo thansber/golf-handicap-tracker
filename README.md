@@ -5,5 +5,5 @@ This is a small application I am writing to assist my mom with tracking handicap
 
 TODO
 ----
-* If nothing is set, show the settings dialog, do not let user close until year/num flights has been set
 * Sorting
+* Print view
