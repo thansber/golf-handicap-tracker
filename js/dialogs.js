@@ -47,7 +47,7 @@ function($, Architect, Settings) {
     $dialog.find(".message").hide();
   };
   
-  var numFlightsSave = function() {
+  var numFlightsSave = function($button) {
     var rawNumFlights = $("#numFlights").val();
     if (rawNumFlights.length === 0) {
       return false;
@@ -59,6 +59,8 @@ function($, Architect, Settings) {
     }
     
     Settings.setNumFlights(numFlights);
+    
+    $button.closest(".dialog").removeClass("firstTime");
     return "The number of flights has been saved as " + numFlights;
   };
   
@@ -74,7 +76,8 @@ function($, Architect, Settings) {
   };
   
   var personSave = function(data) {
-    var name = $("#newPerson").val();
+    var $input = $("#newPerson");
+    var name = $input.val();
     if (name.length == 0) {
       return false;
     }
@@ -87,6 +90,7 @@ function($, Architect, Settings) {
       flight : $.merge([], emptyData)
     };
     
+    $input.focus().select();
     return name + " was added";
   };
   
@@ -180,7 +184,7 @@ function($, Architect, Settings) {
       if ($button.is(".save.year")) {
         msg = yearSave();
       } else if ($button.is(".save.flights")) {
-        msg = numFlightsSave();
+        msg = numFlightsSave($button);
       }
       
       showMessage(msg, $button, "setting");

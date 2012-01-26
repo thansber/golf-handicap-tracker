@@ -121,6 +121,13 @@
     width: 40%;
 }
 
+/* =================================== */
+/* --------- Settings dialog --------- */
+/* =================================== */
+#dialogs .settings.firstTime .close {
+    display: none;
+}
+
 #dialogs .settings .setting {
     margin-right: 1em;
     padding-bottom: 1em;

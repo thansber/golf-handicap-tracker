@@ -68,8 +68,10 @@ function($, IO, Settings, Util) {
   var getCurrentYearData = function() {
     var data = IO.read(Settings.getCurrentYearDataKey(), {json:true});
     if (data === undefined || data === null) {
-      // init dates to [], people to {}
-      data = testData();
+      data = {};
+      data.dates = [];
+      data.people = {};
+      //data = testData();
     }
     return data;
   };
@@ -242,6 +244,12 @@ function($, IO, Settings, Util) {
     appendDeleteDate : appendDeleteDate,
     build : function(opt) {
       opt = $.extend({clear:false}, opt);
+      
+      if (!Settings.isSetup()) {
+        $("#dialogs .settings.dialog").addClass("firstTime");
+        $("#menu .options .settings").click();
+        return false;
+      }
       
       if (opt.clear) {
         rebuildDateList();

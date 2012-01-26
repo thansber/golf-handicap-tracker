@@ -53,6 +53,7 @@ function($, IO) {
       allYears = allYears === null ? [] : allYears;
       numFlights = numFlights === null ? 0 : numFlights;
     },
+    isSetup : function() { return numFlights > 0; },
     setCurrentDate : function(date) { IO.write(CURRENT_DATE_KEY, date); currentDate = date; },
     setCurrentYear : setCurrentYear,
     setNumFlights : function(n) { IO.write(NUM_FLIGHTS_KEY, n); numFlights = n; }
