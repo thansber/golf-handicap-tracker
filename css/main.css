@@ -126,7 +126,7 @@ button.add:hover,button.save:hover {
 }
 
 #main .scores .tableheader {
-    background: -moz-linear-gradient(#99D2E8, #2BB6ED);
+    background: linear-gradient(#99D2E8, #2BB6ED);
     border: 1px solid #212121;
     border-bottom: 1px;
     border-radius: 10px 10px 0 0;

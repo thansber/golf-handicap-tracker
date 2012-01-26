@@ -1,6 +1,6 @@
 #menu {
     border: 2px solid #222;
-    border-radius: 14px;
+    border-radius: 10px;
     border-right: 0;
     height: 34px;
     overflow: hidden;
@@ -42,10 +42,9 @@
 
 #menu .options {
     background-color: white;
-    height: 100%;
     list-style-type: none;
     margin: 0;
-    padding: 0.8em;
+    padding: 0.8em 0.8em 0;
 }
 
 #menu .options li {
