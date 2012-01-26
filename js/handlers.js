@@ -7,8 +7,8 @@ function($, Architect, Dialogs, Settings) {
   
   var lookupPersonName = function($elem) {
     var $cell = $elem.is("td") ? $elem : $elem.closest("td");
-    var $name = $cell.siblings(".name");
-    return $name.text();
+    var $name = $cell.is(".name") ? $cell : $cell.siblings(".name");
+    return $name.find("span").text();
   };
   
   return {
@@ -40,18 +40,36 @@ function($, Architect, Dialogs, Settings) {
       $("#main .people").click(function(e) {
         var $target = $(e.target);
         var $cell = $target.is("td") ? $target : $target.closest("td");
-        if ($cell.is(".name")) {
-          console.log("editing name");
-        } else if ($cell.is(".handicap")) {
-          console.log("editing handicap");
-        } else if ($cell.is(".index")) {
-          console.log("editing index");
+        if ($cell.is(".editing")) {
+          return false;
+        }
+        
+        if ($cell.is(".name") || $cell.is(".handicap") || $cell.is(".index")) {
+          $cell.addClass("editing");
+          $cell.find("input").focus().select();
         } else if ($target.is("p.flight")) {
           var name = lookupPersonName($target);
           $target.siblings().removeClass("selected");
           $target.addClass("selected");
-          Architect.updatePerson(name, {flight:$target.data("index")});
+          Architect.updatePerson(name, {flight:$target.data("index")}, {rebuild:true});
         }
+      });
+      
+      $("#main .people input").live("focusout", function() {
+        var $this = $(this);
+        var $cell = $this.closest("td");
+        var name = lookupPersonName($cell);
+        
+        if ($cell.is(".name")) {
+          Architect.updatePersonName(name, $this.val());
+        } else if ($cell.is(".handicap")) {
+          Architect.updatePerson(name, {handicap:$this.val()});
+        } else if ($cell.is(".index")) {
+          Architect.updatePerson(name, {index:$this.val()});
+        }
+        
+        $cell.removeClass("editing");
+        $cell.find("span").text($this.val());
       });
       
       $("#menu").click(function() {

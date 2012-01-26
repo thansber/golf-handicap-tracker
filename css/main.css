@@ -163,6 +163,31 @@ button.add:hover,button.save:hover {
     text-align: left;
 }
 
+#main .scores .people td input {
+    display: none;
+    width: 4em;
+}
+
+#main .scores .people td.name input {
+    width: 14em;
+}
+
+#main .scores .people td span {
+    display: inline-block;
+}
+
+#main .scores .people td.editing input {
+    display: inline-block;
+}
+
+#main .scores .people td.editing span {
+    display: none;
+}
+
+#main .scores .people .name {
+    width: 11em;
+}
+
 #main .scores .people .handicap {
     width: 4em;
 }

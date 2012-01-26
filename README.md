@@ -5,7 +5,5 @@ This is a small application I am writing to assist my mom with tracking handicap
 
 TODO
 ----
-* In place handicap/index editing
-* In place name editing
 * If nothing is set, show the settings dialog, do not let user close until year/num flights has been set
 * Sorting

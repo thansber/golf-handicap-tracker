@@ -159,15 +159,18 @@ function($, IO, Settings, Util) {
       var flight = dateIndex == -1 ? "" : value.flight[dateIndex];
       
       rows[r++] = "<td class=\"name\">";
-      rows[r++] = name;
+      rows[r++] = "<span>" + name + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + name + "\" />";
       rows[r++] = "</td>";
       
       rows[r++] = "<td class=\"handicap\">";
-      rows[r++] = handicap;
+      rows[r++] = "<span>" + handicap + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + handicap + "\" />";
       rows[r++] = "</td>";
       
       rows[r++] = "<td class=\"index\">";
-      rows[r++] = index
+      rows[r++] = "<span>" + index + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + index + "\" />";
       rows[r++] = "</td>";
       
       rows[r++] = "<td class=\"flight\">";
@@ -207,7 +210,8 @@ function($, IO, Settings, Util) {
     };
   };
   
-  var updatePerson = function(name, change) {
+  var updatePerson = function(name, change, opt) {
+    opt = $.extend({rebuild:false}, opt);
     var data = getCurrentYearData();
     var date = Settings.getCurrentDate();
     var index = getDateIndex(data, date);
@@ -220,9 +224,19 @@ function($, IO, Settings, Util) {
     }
     
     setCurrentYearData(data);
-    rebuildScoreData();
+    
+    if (opt.rebuild) {
+      rebuildScoreData();
+    }
   };
   
+  var updatePersonName = function(name, newName) {
+    var data = getCurrentYearData();
+    var personData = data.people[name];
+    data.people[newName] = $.extend(true, {}, personData);
+    delete data.people[name];
+    setCurrentYearData(data);
+  };
   
   return {
     appendDeleteDate : appendDeleteDate,
@@ -254,6 +268,7 @@ function($, IO, Settings, Util) {
     rebuildDeletePeople : rebuildDeletePeople,
     rebuildScoreData : rebuildScoreData,
     setCurrentYearData : setCurrentYearData,
-    updatePerson : updatePerson
+    updatePerson : updatePerson,
+    updatePersonName : updatePersonName
   };
 });
