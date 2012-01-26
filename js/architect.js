@@ -38,6 +38,28 @@ function($, IO, Settings, Util) {
     });
   };
   
+  var buildFlights = function(flightStr) {
+    var flights = [];
+    var f = 0;
+    var numFlights = Settings.getNumFlights();
+    var flightNames = Settings.getFlightNames();
+    var flight = flightStr.length === 0 ? -1 : +flightStr;
+    
+    for (var i = 0; i < numFlights; i++) {
+      flights[f++] = "<p class=\"flight";
+      if (flight === i) {
+        flights[f++] = " selected";
+      }
+      flights[f++] = "\" data-index=\"";
+      flights[f++] = i;
+      flights[f++] = "\">";
+      flights[f++] = flightNames[i];
+      flights[f++] = "</p>";
+    }
+    
+    return flights.join("");
+  };
+  
   var dateToString = function(rawDate) {
     var monthNum = parseInt(rawDate.substr(0, 2) - 1, 10);
     return MONTH_NAMES[monthNum] + " " + parseInt(rawDate.substr(2), 10);
@@ -50,6 +72,10 @@ function($, IO, Settings, Util) {
       data = testData();
     }
     return data;
+  };
+  
+  var getDateIndex = function(data, date) {
+    return $.inArray(date, data.dates);
   };
   
   var populateDays = function() {
@@ -117,24 +143,41 @@ function($, IO, Settings, Util) {
   var rebuildScoreData = function() {
     var data = getCurrentYearData();
     var date = Settings.getCurrentDate();
-    var dateIndex = $.inArray(date, data.dates);
+    var dateIndex = getDateIndex(data, date);
     
     $("#main .tableheader").empty().html(dateToString(date) + ", " + Settings.getCurrentYear());
     
     $peopleBody.empty();
     
+    var rows = [];
+    var r = 0;
     $.each(data.people, function(name, value) {
+      rows[r++] = "<tr class=\"person\">";
       var $row = $("<tr></tr>").addClass("person");
       var handicap = dateIndex == -1 ? "" : value.handicap[dateIndex];
       var index = dateIndex == -1 ? "" : value.index[dateIndex];
       var flight = dateIndex == -1 ? "" : value.flight[dateIndex];
-      $row.append($("<td class=\"name\">" + name + "</td>"));
-      $row.append($("<td class=\"handicap\">" + handicap + "</td>"));
-      $row.append($("<td class=\"index\">" + index + "</td>"));
-      $row.append($("<td class=\"flight\">" + flight + "</td>"));
       
-      $peopleBody.append($row);
+      rows[r++] = "<td class=\"name\">";
+      rows[r++] = name;
+      rows[r++] = "</td>";
+      
+      rows[r++] = "<td class=\"handicap\">";
+      rows[r++] = handicap;
+      rows[r++] = "</td>";
+      
+      rows[r++] = "<td class=\"index\">";
+      rows[r++] = index
+      rows[r++] = "</td>";
+      
+      rows[r++] = "<td class=\"flight\">";
+      rows[r++] = buildFlights(flight);
+      rows[r++] = "</td>";
+      
+      rows[r++] = "</tr>";
     });
+    
+    $peopleBody.append($(rows.join("")));
   };
   
   var setCurrentYearData = function(newData) {
@@ -164,6 +207,22 @@ function($, IO, Settings, Util) {
     };
   };
   
+  var updatePerson = function(name, change) {
+    var data = getCurrentYearData();
+    var date = Settings.getCurrentDate();
+    var index = getDateIndex(data, date);
+    
+    var person = data.people[name];
+    for (var p in person) {
+      if (change[p] !== undefined && change[p] !== null) {
+        person[p][index] = "" + change[p];
+      }
+    }
+    
+    setCurrentYearData(data);
+    rebuildScoreData();
+  };
+  
   
   return {
     appendDeleteDate : appendDeleteDate,
@@ -172,10 +231,7 @@ function($, IO, Settings, Util) {
       
       if (opt.clear) {
         rebuildDateList();
-        //rebuildHeader(data.dates);
-        //rebuildBody(data.people);
       }
-      
     },
     dateToString : dateToString,
     getCurrentYearData : getCurrentYearData,
@@ -197,6 +253,7 @@ function($, IO, Settings, Util) {
     rebuildDeleteDates : rebuildDeleteDates,
     rebuildDeletePeople : rebuildDeletePeople,
     rebuildScoreData : rebuildScoreData,
-    setCurrentYearData : setCurrentYearData
+    setCurrentYearData : setCurrentYearData,
+    updatePerson : updatePerson
   };
 });

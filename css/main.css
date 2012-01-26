@@ -170,3 +170,23 @@ button.add:hover,button.save:hover {
 #main .scores .people .index {
     width: 3em;
 }
+
+#main .scores .people p.flight {
+    background: linear-gradient(#EEE, #CECECE);
+    border: 1px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+    float: left;
+    margin: 0 0.5em 0 0;
+    opacity: 0.25;
+    padding: 0.2em 0.5em;
+    text-align: center;
+    transition-property: opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
+
+#main .scores .people p.flight.selected {
+    box-shadow: 2px 2px 1px #888;
+    opacity: 1;
+}

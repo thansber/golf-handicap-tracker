@@ -5,6 +5,12 @@ function($, Architect, Dialogs, Settings) {
   
   var dialogs = ["settings", "add.date", "delete.date", "add.person", "delete.person"];
   
+  var lookupPersonName = function($elem) {
+    var $cell = $elem.is("td") ? $elem : $elem.closest("td");
+    var $name = $cell.siblings(".name");
+    return $name.text();
+  };
+  
   return {
     init : function() {
       
@@ -28,6 +34,23 @@ function($, Architect, Dialogs, Settings) {
           $target.addClass("selected");
           Settings.setCurrentDate($target.data("date"));
           Architect.rebuildScoreData();
+        }
+      });
+      
+      $("#main .people").click(function(e) {
+        var $target = $(e.target);
+        var $cell = $target.is("td") ? $target : $target.closest("td");
+        if ($cell.is(".name")) {
+          console.log("editing name");
+        } else if ($cell.is(".handicap")) {
+          console.log("editing handicap");
+        } else if ($cell.is(".index")) {
+          console.log("editing index");
+        } else if ($target.is("p.flight")) {
+          var name = lookupPersonName($target);
+          $target.siblings().removeClass("selected");
+          $target.addClass("selected");
+          Architect.updatePerson(name, {flight:$target.data("index")});
         }
       });
       
