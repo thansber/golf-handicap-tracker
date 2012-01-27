@@ -1,0 +1,43 @@
+#main,#menu {
+    display: none;
+}
+
+#dialogs .print.dialog {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+#dialogs .print.dialog h1 {
+    display: none;
+}
+
+#dialogs .print.dialog .content {
+    border: 0;
+    font-size: 0.5em;
+    padding-top: 0;
+}
+
+#dialogs .print .tableheader {
+    margin-left: 0;
+    margin-right: 0;
+    width: 40%;
+}
+
+#dialogs .print.dialog .flight {
+    font-size: 1em;
+    margin: 0.3em 2em 1.25em 0;
+    width: 40%;
+}
+
+#dialogs .print.dialog .flight th,#dialogs .print .flight td {
+    padding: 0.2em;
+}
+
+#dialogs .print .flight .index,#dialogs .print .flight .handicap {
+    width: auto;
+}
+
+#dialogs .print.dialog .actions {
+    display: none;
+}

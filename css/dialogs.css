@@ -78,7 +78,7 @@
     height: auto;
     margin: 0 5%;
     position: absolute;
-    top: -20em;
+    top: -100%;
     transition-property: top;
     transition-duration: 0.4s;
     transition-timing-function: ease;
@@ -140,4 +140,57 @@
 
 #dialogs .settings #numFlights {
     width: 3em;
+}
+
+/* ======================================== */
+/* --------- Print preview dialog --------- */
+/* ======================================== */
+#dialogs .print .content {
+    padding-top: 4em;
+}
+
+#dialogs .print .tableheader {
+    font-size: 1.4em;
+    margin: 0 auto;
+    padding: 0;
+    width: 50%;
+}
+
+#dialogs .print .flight {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-collapse: collapse;
+    margin: 0.75em auto 1.5em auto;
+    padding: 0;
+    width: 50%;
+}
+
+#dialogs .print .flight th,#dialogs .print .flight td {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0.4em;
+}
+
+#dialogs .print .flight .index,#dialogs .print .flight .handicap {
+    width: 4em;
+}
+
+#dialogs .print .actions {
+    position: absolute;
+    top: 4.5em;
+    right: 1em;
+}
+
+/* ================================ */
+/* --------- Email dialog --------- */
+/* ================================ */
+#dialogs .email #emailText {
+    height: 20em;
+    width: 95%;
+}
+
+#dialogs .email .actions {
+    position: absolute;
+    top: 4.5em;
+    right: 1em;
 }

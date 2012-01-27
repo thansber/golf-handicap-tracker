@@ -5,6 +5,7 @@
   <link type="text/css" rel="stylesheet" href="css/main.css"/>
   <link type="text/css" rel="stylesheet" href="css/menu.css"/>
   <link type="text/css" rel="stylesheet" href="css/dialogs.css"/>
+  <link type="text/css" rel="stylesheet" media="print" href="css/print.css"/>
   <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
   <script type="text/javascript" data-main="js/main" src="js/lib/require-jquery-min.js"></script>
   <script type="text/javascript">
@@ -15,7 +16,7 @@
 </head>
 <body>
 
-<div id="version">v1.0</div>
+<div id="version">v1.2</div>
 
 <section id="main">
   <div class="dates">
@@ -48,11 +49,13 @@
   <div class="arrow left"></div>
   
   <ul class="options">
-    <li class="settings">Settings</li>
+    <li class="print">Print Preview</li>
+    <li class="email">Email Flight Rosters</li>
     <li class="add date">Add date</li>
     <li class="add person">Add person</li>
     <li class="delete date">Delete date</li>
     <li class="delete person">Delete person</li>
+    <li class="settings">Settings</li>
   </ul>
 </section>
 
@@ -67,7 +70,7 @@
       
       <select id="newDateMonth"><option value="">-- Month --</option></select>
       <select id="newDateDay"><option value="">-- Day --</option></select>
-      <button class="save date">Save</button>
+      <button class="save date green">Save</button>
       <label class="save message"></label>
     </div>
   </section>
@@ -80,7 +83,7 @@
       but only for the currently selected year, <span class="currentYear"></span>.</p> 
     
       <select id="deleteDate"><option value="">-- Date --</option></select>
-      <button class="delete date">Delete</button>
+      <button class="delete date red">Delete</button>
       <label class="delete message"></label>
     </div>
   </section>
@@ -91,7 +94,7 @@
       <p class="instructions">Enter the name of the person you wish to add, then click Save.</p> 
     
       <input type="text" id="newPerson" value="" />
-      <button class="save person">Save</button>
+      <button class="save person green">Save</button>
       <label class="save message"></label>
     </div>
   </section>
@@ -103,7 +106,7 @@
       <p class="instructions">All handicap and index values associated with this person will be deleted for all dates.</p> 
     
       <select id="deletePerson"><option value="">-- Person --</option></select>
-      <button class="delete person">Delete</button>
+      <button class="delete person red">Delete</button>
       <label class="delete message"></label>
     </div>
   </section>
@@ -116,15 +119,37 @@
       <div class="setting">
         <label for="selectYear">Select the year you want to use:</label>
         <select id="selectYear"><option value="">-- Year --</option></select>
-        <button class="save year">Use this year</button>
+        <button class="save year green">Use this year</button>
         <label class="save message"></label>
       </div>
       <div class="setting">
         <label for="numFlights">Enter the number of flights in your league:</label>
         <input type="number" id="numFlights" value="0" />
-        <button class="save flights">Save</button>
+        <button class="save flights green">Save</button>
         <label class="save message"></label>
       </div>
+    </div>
+  </section>
+  
+  <section class="print dialog">
+    <h1>Print Preview <a class="close">X</a></h1>
+    <div class="content"></div>
+    <div class="actions">
+      <button class="print green">Print</button>
+    </div>
+  </section>
+  
+  <section class="email dialog">
+    <h1>Email Flight Rosters <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">You can copy the text in the box below to an email.</p>
+      <p class="instructions">You will first need to highlight the text in the box, which you can do by clicking Select All.</p>
+      <p class="instructions">Then you need to copy the text by hitting Ctrl + C.</p>
+      <p class="instructions">Finally you can paste the text into an email by hitting Ctrl + V after you have started a new email.</p>
+      <textarea id="emailText"></textarea>
+    </div>
+    <div class="actions">
+      <button class="select all green">Select All</button>
     </div>
   </section>
 </section>

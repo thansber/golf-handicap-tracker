@@ -22,21 +22,21 @@ button:active {
     top: 1px;
 }
 
-button.delete {
+button.red {
     background: linear-gradient(#DF3336, #BF3235);
     border: 2px solid #952B2C;
 }
 
-button.delete:hover {
+button.red:hover {
     background: linear-gradient(#BF3235, #DF3336);
 }
 
-button.add,button.save {
+button.green {
     background: linear-gradient(#5D9C46, #3D6832);
     border: 2px solid #225726;
 }
 
-button.add:hover,button.save:hover {
+button.green:hover {
     background: linear-gradient(#3D6832, #5D9C46);
 }
 

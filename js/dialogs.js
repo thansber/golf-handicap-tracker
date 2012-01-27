@@ -1,7 +1,34 @@
 define(
 /* Dialogs */ 
-["jquery", "architect", "settings"], 
-function($, Architect, Settings) {
+["jquery", "architect", "settings", "util"], 
+function($, Architect, Settings, Util) {
+  
+  var buildPeopleByFlight = function() {
+    var data = Architect.getCurrentYearData();
+    var dateIndex = Architect.getDateIndex(data, Settings.getCurrentDate());
+    var flightNames = Settings.getFlightNames();
+    
+    var peopleByFlight = {};
+    
+    $.each(data.people, function(name, value) {
+      var flight = value.flight[dateIndex];
+      var flightName = flight.length === 0 ? "Unassigned" : flightNames[+flight];
+      var flightPeople = peopleByFlight[flightName];
+      
+      if (!flightPeople) {
+        flightPeople = [];
+        peopleByFlight[flightName] = flightPeople;
+      }
+      
+      flightPeople.push({
+        name : name,
+        handicap : value.handicap[dateIndex],
+        index : value.index[dateIndex]
+      });
+    });
+    
+    return peopleByFlight;
+  };
   
   var dateDelete = function(data) {
     var date = $("#deleteDate").val();
@@ -45,6 +72,55 @@ function($, Architect, Settings) {
   var dateShowCallback = function($dialog) {
     $dialog.find(".currentYear").empty().html(Settings.getCurrentYear());
     $dialog.find(".message").hide();
+  };
+  
+  var flightPeopleToMarkup = function(flight, people) {
+    var markup = [];
+    var m = 0;
+    
+    if (!people || people.length === 0) {
+      return "";
+    }
+    
+    people.sort(sortByHandicap);
+    
+    markup[m++] = "<h6 class=\"tableheader\">Flight " + flight + "</h6>"
+    markup[m++] = "<table class=\"flight\">";
+    markup[m++] = "<thead><tr><th>Name</th><th>Index</th><th>Handicap</th></tr></thead>";
+    markup[m++] = "<tbody>";
+    $.each(people, function(i, person) {
+      markup[m++] = "<tr>";
+      markup[m++] = "<td class=\"name\">" + person.name + "</td>";
+      markup[m++] = "<td class=\"index\">" + person.index + "</td>";
+      markup[m++] = "<td class=\"handicap\">" + person.handicap + "</td>";
+      markup[m++] = "</tr>";
+    });
+    markup[m++] = "</tbody>";
+    markup[m++] = "</table>";
+    
+    return markup.join("");
+  };
+  
+  var flightPeopleToText = function(flight, people) {
+    var text = [];
+    var t = 0;
+    var NEWLINE = "\n";
+    
+    if (!people || people.length === 0) {
+      return "";
+    }
+    
+    people.sort(sortByHandicap);
+    
+    text[t++] = "Flight " + flight;
+    text[t++] = "=======" + Util.pad("", flight.length, {ch:"="});
+    $.each(people, function(i, person) {
+      text[t++] = person.name;
+    });
+    text[t++] = "";
+    text[t++] = "";
+    
+    return text.join(NEWLINE);
   };
   
   var numFlightsSave = function($button) {
@@ -104,6 +180,18 @@ function($, Architect, Settings) {
     $button.closest(parent ? "." + parent : ".content").find(".message").hide().empty().html(msg).fadeIn("fast");
   };
   
+  var sortByHandicap = function(a, b) {
+    var handicapA = "" + a.handicap;
+    var handicapB = "" + b.handicap;
+    if (handicapA.length === 0) {
+      handicapA = 0;
+    }
+    if (handicapB.length === 0) {
+      handicapB = 0;
+    }
+    return +handicapA - +handicapB;
+  };
+  
   var yearSave = function() {
     var selectedYear = $("#selectYear").val();
     if (selectedYear.length == 0) {
@@ -142,7 +230,30 @@ function($, Architect, Settings) {
     
     $dialog.find(".message").hide();
   };
- 
+  showCallbacks["print"] = function($dialog) {
+    var flightNames = Settings.getFlightNames();
+    var peopleByFlight = buildPeopleByFlight();
+    var $content = $dialog.find(".content");
+    
+    $content.empty();
+    $content.append($(flightPeopleToMarkup("Unassigned", peopleByFlight["Unassigned"])));
+    $.each(flightNames, function(i, name) {
+      $content.append($(flightPeopleToMarkup(name, peopleByFlight[name])));
+    });
+    
+    $dialog.find(".message").hide();
+  };
+  showCallbacks["email"] = function($dialog) {
+    var peopleByFlight = buildPeopleByFlight();
+    var flightNames = Settings.getFlightNames();
+    var text = "";
+    text += flightPeopleToText("Unassigned", peopleByFlight["Unassigned"]);
+    $.each(flightNames, function(i, name) {
+      text += flightPeopleToText(name, peopleByFlight[name]);
+    });
+    
+    $("#emailText").text(text);
+  };
   
   return {
     dates : function($button) {
@@ -158,6 +269,12 @@ function($, Architect, Settings) {
       showMessage(msg, $button);
       rebuild(data);
       Architect.rebuildDeleteDates({clear:true});
+    },
+    
+    email : function($button) {
+      if ($button.is(".select.all")) {
+        $("#emailText").focus().select();
+      }
     },
     
     hide : function() {
@@ -177,6 +294,12 @@ function($, Architect, Settings) {
       showMessage(msg, $button);
       rebuild(data);
       Architect.rebuildDeletePeople({clear:true});
+    },
+    
+    print : function($button) {
+      if ($button.is(".print")) {
+        window.print();
+      }
     },
     
     settings : function($button) {

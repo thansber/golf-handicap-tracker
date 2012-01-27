@@ -257,6 +257,7 @@ function($, IO, Settings, Util) {
     },
     dateToString : dateToString,
     getCurrentYearData : getCurrentYearData,
+    getDateIndex : getDateIndex,
     init : function() {
       $people = $("#main .people");
       $peopleBody = $people.find("tbody");
