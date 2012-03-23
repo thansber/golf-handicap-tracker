@@ -145,6 +145,11 @@
 /* ======================================== */
 /* --------- Print preview dialog --------- */
 /* ======================================== */
+#dialogs .print .date {
+    margin: 0 auto 1em;
+    width: 50%;
+}
+
 #dialogs .print .content {
     padding-top: 4em;
 }

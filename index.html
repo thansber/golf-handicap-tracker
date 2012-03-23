@@ -6,17 +6,10 @@
   <link type="text/css" rel="stylesheet" href="css/menu.css"/>
   <link type="text/css" rel="stylesheet" href="css/dialogs.css"/>
   <link type="text/css" rel="stylesheet" media="print" href="css/print.css"/>
-  <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
-  <script type="text/javascript" data-main="js/main" src="js/lib/require-jquery-min.js"></script>
-  <script type="text/javascript">
-  require.config({
-    baseUrl:"js"
-  });
-  </script>
 </head>
 <body>
 
-<div id="version">v1.2</div>
+<div id="version">v1.3</div>
 
 <section id="main">
   <div class="dates">
@@ -153,6 +146,10 @@
     </div>
   </section>
 </section>
+
+<script type="text/javascript" src="js/lib/prefixfree.min.js"></script>
+<script type="text/javascript">var require = { baseUrl : "js" };</script>
+<script type="text/javascript" data-main="main" src="js/lib/require-jquery-min.js"></script>
 
 </body>
 </html>

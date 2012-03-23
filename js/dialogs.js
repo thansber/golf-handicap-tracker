@@ -234,8 +234,10 @@ function($, Architect, Settings, Util) {
     var flightNames = Settings.getFlightNames();
     var peopleByFlight = buildPeopleByFlight();
     var $content = $dialog.find(".content");
+    var dateHeader = Architect.dateToString(Settings.getCurrentDate()) + ", " + Settings.getCurrentYear();
     
     $content.empty();
+    $content.append($("<h2 class=\"date\">" + dateHeader + "</h2>"));
     $content.append($(flightPeopleToMarkup("Unassigned", peopleByFlight["Unassigned"])));
     $.each(flightNames, function(i, name) {
       $content.append($(flightPeopleToMarkup(name, peopleByFlight[name])));
