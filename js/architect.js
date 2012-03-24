@@ -61,6 +61,9 @@ function($, IO, Settings, Util) {
   };
   
   var dateToString = function(rawDate) {
+    if (!rawDate) {
+      return "";
+    }
     var monthNum = parseInt(rawDate.substr(0, 2) - 1, 10);
     return MONTH_NAMES[monthNum] + " " + parseInt(rawDate.substr(2), 10);
   };
