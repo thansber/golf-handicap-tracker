@@ -1,7 +1,7 @@
 body {
     font-family: Arial;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .hidden {
@@ -121,7 +121,7 @@ button.green:hover {
 
 #main .scores {
     float: left;
-    margin: 2.5em 0 0 2em;
+    margin: 2.5em 0 2em 2em;
     width: 60%;
 }
 

@@ -116,6 +116,12 @@ function($, Architect, Dialogs, Settings) {
           $("#dialogs").addClass("hidden");
         }
       });
+      
+      $("#dialogs .add.person input[type='text']").keydown(function(e) {
+        if (+e.keyCode === 13) {
+          $(this).siblings("button.save").click();
+        }
+      });
     }
   };
 });

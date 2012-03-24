@@ -84,12 +84,12 @@ function($, Architect, Settings, Util) {
     
     people.sort(sortByHandicap);
     
-    markup[m++] = "<h6 class=\"tableheader\">Flight " + flight + "</h6>"
     markup[m++] = "<table class=\"flight\">";
-    markup[m++] = "<thead><tr><th>Name</th><th>Index</th><th>Handicap</th></tr></thead>";
+    markup[m++] = "<thead><tr><th></th><th>" + flight + "</th><th>Index</th><th>Handicap</th></tr></thead>";
     markup[m++] = "<tbody>";
     $.each(people, function(i, person) {
       markup[m++] = "<tr>";
+      markup[m++] = "<td class=\"number\">" + (i + 1) + "</td>";
       markup[m++] = "<td class=\"name\">" + person.name + "</td>";
       markup[m++] = "<td class=\"index\">" + person.index + "</td>";
       markup[m++] = "<td class=\"handicap\">" + person.handicap + "</td>";
@@ -237,10 +237,11 @@ function($, Architect, Settings, Util) {
     var dateHeader = Architect.dateToString(Settings.getCurrentDate()) + ", " + Settings.getCurrentYear();
     
     $content.empty();
+    $content.append($("<h2 class=\"title\">Makray Ladies 18 Hole League</h2>"));
     $content.append($("<h2 class=\"date\">" + dateHeader + "</h2>"));
     $content.append($(flightPeopleToMarkup("Unassigned", peopleByFlight["Unassigned"])));
     $.each(flightNames, function(i, name) {
-      $content.append($(flightPeopleToMarkup(name, peopleByFlight[name])));
+      $content.append($(flightPeopleToMarkup("Flight " + name, peopleByFlight[name])));
     });
     
     $dialog.find(".message").hide();
@@ -281,6 +282,7 @@ function($, Architect, Settings, Util) {
     
     hide : function() {
       $("#dialogs").find(".dialog").removeClass("displayed");
+      $("body").removeClass("dialog");
     },
     
     people : function($button) {
@@ -318,6 +320,7 @@ function($, Architect, Settings, Util) {
     
     show : function(dialogClass) {
       $("#dialogs").removeClass("hidden");
+      $("body").addClass("dialog");
       var $dialog = $("#dialogs").find(".dialog." + dialogClass)
       var displayDialog = function() { $dialog.addClass("displayed"); };
       

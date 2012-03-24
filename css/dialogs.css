@@ -145,9 +145,18 @@
 /* ======================================== */
 /* --------- Print preview dialog --------- */
 /* ======================================== */
-#dialogs .print .date {
-    margin: 0 auto 1em;
-    width: 50%;
+#dialogs .print {
+    height: 100%;    
+}
+
+#dialogs .print h2 {
+    margin: 0 0 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#dialogs .print h2.date {
+    margin-bottom: 1em;
 }
 
 #dialogs .print .content {
@@ -162,8 +171,7 @@
 }
 
 #dialogs .print .flight {
-    border-left: 1px solid black;
-    border-top: 1px solid black;
+    border: 0;
     border-collapse: collapse;
     margin: 0.75em auto 1.5em auto;
     padding: 0;
@@ -171,9 +179,14 @@
 }
 
 #dialogs .print .flight th,#dialogs .print .flight td {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    padding: 0.4em;
+    border: 0;
+    padding: 0.1em 0.4em;
+    text-align: left;
+}
+
+#dialogs .print .flight .number {
+    text-align: right;
+    width: 1em;
 }
 
 #dialogs .print .flight .index,#dialogs .print .flight .handicap {

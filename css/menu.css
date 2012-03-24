@@ -1,11 +1,11 @@
 #menu {
     border: 2px solid #222;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     border-right: 0;
     height: 34px;
     overflow: hidden;
     position: absolute;
-    right: -1em;
+    right: 0;
     top: 2.5em;
     transition-property: height, right, width;
     transition-duration: 0.5s;
@@ -16,7 +16,7 @@
 
 #menu h1 {
     background: linear-gradient(#222, #555);
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     color: white;
     cursor: pointer;
     font-size: 1.4em;

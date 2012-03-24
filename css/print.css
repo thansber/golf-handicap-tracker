@@ -19,8 +19,7 @@
 }
 
 #dialogs .print.dialog .date {
-    margin-left: 0;
-    margin-right: 0;
+
 }
 
 #dialogs .print.dialog .content {
@@ -30,9 +29,6 @@
 }
 
 #dialogs .print .tableheader {
-    margin-left: 0;
-    margin-right: 0;
-    width: 40%;
 }
 
 #dialogs .print.dialog .flight {
@@ -46,7 +42,6 @@
 }
 
 #dialogs .print .flight .index,#dialogs .print .flight .handicap {
-    width: auto;
 }
 
 #dialogs .print.dialog .actions {
