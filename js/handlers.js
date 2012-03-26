@@ -65,8 +65,8 @@ function($, Architect, Dialogs, Settings) {
         } else if ($cell.is(".handicap")) {
           Architect.updatePerson(name, {handicap:$this.val()}, {rebuild:true});
         } else if ($cell.is(".index")) {
-          var newIndex = +($this.val());
-          var newHandicap = parseFloat(newIndex * +Settings.getSlope() / 113).toFixed(1);
+          var newIndex = parseFloat($this.val());
+          var newHandicap = Math.round(parseFloat(newIndex * +Settings.getSlope() / 113));
           Architect.updatePerson(name, {index:$this.val(), handicap:newHandicap}, {rebuild:true});
         }
         
@@ -123,6 +123,10 @@ function($, Architect, Dialogs, Settings) {
         if (+e.keyCode === 13) {
           $(this).siblings("button.save").click();
         }
+      });
+      
+      $("body").on("slopechange", function() {
+        Architect.calculateHandicapForAllPeople();
       });
     }
   };

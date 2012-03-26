@@ -60,6 +60,10 @@ function($, IO, Settings, Util) {
     return flights.join("");
   };
   
+  var calculateHandicap = function(index) {
+    return Math.round(parseFloat(index * +Settings.getSlope() / 113));
+  };
+  
   var dateToString = function(rawDate) {
     if (!rawDate) {
       return "";
@@ -248,6 +252,20 @@ function($, IO, Settings, Util) {
       if (opt.clear) {
         rebuildDateList();
       }
+    },
+    calculateHandicapForAllPeople : function() {
+      var data = getCurrentYearData();
+      
+      $.each(data.people, function(i, person) {
+        $.each(data.dates, function(d) {
+          if (person.index[d]) {
+            person.handicap[d] = calculateHandicap(parseFloat(person.index[d]));
+          }
+        });
+      });
+      
+      setCurrentYearData(data);
+      rebuildScoreData();
     },
     dateToString : dateToString,
     getCurrentYearData : getCurrentYearData,

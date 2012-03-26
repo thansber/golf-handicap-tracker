@@ -62,7 +62,7 @@ function($, IO) {
     setCurrentDate : function(date) { IO.write(CURRENT_DATE_KEY, date); currentDate = date; },
     setCurrentYear : setCurrentYear,
     setNumFlights : function(n) { IO.write(NUM_FLIGHTS_KEY, n); numFlights = n; },
-    setSlope : function(n) { IO.write(SLOPE_KEY, n); slope = n; }
+    setSlope : function(n) { IO.write(SLOPE_KEY, n); slope = n; $("body").trigger("slopechange"); }
   };
   
 });
