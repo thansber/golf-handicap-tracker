@@ -82,7 +82,7 @@ function($, Architect, Settings, Util) {
       return "";
     }
     
-    people.sort(sortByHandicap);
+    people.sort(Util.sortByHandicap());
     
     markup[m++] = "<table class=\"flight\">";
     markup[m++] = "<thead><tr><th></th><th>" + flight + "</th><th>Index</th><th>Handicap</th></tr></thead>";
@@ -110,7 +110,7 @@ function($, Architect, Settings, Util) {
       return "";
     }
     
-    people.sort(sortByHandicap);
+    people.sort(Util.sortByHandicap());
     
     text[t++] = "Flight " + flight;
     text[t++] = "=======" + Util.pad("", flight.length, {ch:"="});
@@ -180,16 +180,21 @@ function($, Architect, Settings, Util) {
     $button.closest(parent ? "." + parent : ".content").find(".message").hide().empty().html(msg).fadeIn("fast");
   };
   
-  var sortByHandicap = function(a, b) {
-    var handicapA = "" + a.handicap;
-    var handicapB = "" + b.handicap;
-    if (handicapA.length === 0) {
-      handicapA = 0;
+  var slopeSave = function($button) {
+    var rawSlope = $("#slope").val();
+    if (rawSlope.length === 0) {
+      return "";
     }
-    if (handicapB.length === 0) {
-      handicapB = 0;
+    
+    var slope = parseInt(rawSlope, 10);
+    if (slope === 0) {
+      return "";
     }
-    return +handicapA - +handicapB;
+    
+    Settings.setSlope(slope);
+    
+    $button.closest(".dialog").removeClass("firstTime");
+    return "The slope for your home course has been saved as " + slope;
   };
   
   var yearSave = function() {
@@ -227,6 +232,7 @@ function($, Architect, Settings, Util) {
     });
     
     $("#numFlights").val(Settings.getNumFlights());
+    $("#slope").val(Settings.getSlope());
     
     $dialog.find(".message").hide();
   };
@@ -312,6 +318,8 @@ function($, Architect, Settings, Util) {
         msg = yearSave();
       } else if ($button.is(".save.flights")) {
         msg = numFlightsSave($button);
+      } else if ($button.is(".save.slope")) {
+        msg = slopeSave($button);
       }
       
       showMessage(msg, $button, "setting");

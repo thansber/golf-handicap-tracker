@@ -78,7 +78,7 @@
     height: auto;
     margin: 0 5%;
     position: absolute;
-    top: -100%;
+    top: -200%;
     transition-property: top;
     transition-duration: 0.4s;
     transition-timing-function: ease;
@@ -140,6 +140,10 @@
 
 #dialogs .settings #numFlights {
     width: 3em;
+}
+
+#dialogs .settings #slope {
+    width: 4em;
 }
 
 /* ======================================== */

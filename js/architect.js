@@ -74,13 +74,29 @@ function($, IO, Settings, Util) {
       data = {};
       data.dates = [];
       data.people = {};
-      //data = testData();
     }
     return data;
   };
   
   var getDateIndex = function(data, date) {
     return $.inArray(date, data.dates);
+  };
+  
+  var getPeopleDataByDate = function(data, date) {
+    var dateIndex = getDateIndex(data, date);
+    var people = [];
+    
+    $.each(data.people, function(name, value) {
+      var handicap = dateIndex == -1 ? "" : value.handicap[dateIndex];
+      var index = dateIndex == -1 ? "" : value.index[dateIndex];
+      var flight = dateIndex == -1 ? "" : value.flight[dateIndex];
+      
+      people.push({name:name, handicap:handicap, index:index, flight:flight});
+    });
+    
+    people.sort(Util.sortByHandicap());
+    
+    return people;
   };
   
   var populateDays = function() {
@@ -148,7 +164,6 @@ function($, IO, Settings, Util) {
   var rebuildScoreData = function() {
     var data = getCurrentYearData();
     var date = Settings.getCurrentDate();
-    var dateIndex = getDateIndex(data, date);
     
     $("#main .tableheader").empty().html(dateToString(date) + ", " + Settings.getCurrentYear());
     
@@ -156,30 +171,29 @@ function($, IO, Settings, Util) {
     
     var rows = [];
     var r = 0;
-    $.each(data.people, function(name, value) {
+    var sortedPeople = getPeopleDataByDate(data, date);
+    
+    $.each(sortedPeople, function(i, person) {
       rows[r++] = "<tr class=\"person\">";
       var $row = $("<tr></tr>").addClass("person");
-      var handicap = dateIndex == -1 ? "" : value.handicap[dateIndex];
-      var index = dateIndex == -1 ? "" : value.index[dateIndex];
-      var flight = dateIndex == -1 ? "" : value.flight[dateIndex];
       
       rows[r++] = "<td class=\"name\">";
-      rows[r++] = "<span>" + name + "</span>";
-      rows[r++] = "<input type=\"text\" value=\"" + name + "\" />";
-      rows[r++] = "</td>";
-      
-      rows[r++] = "<td class=\"handicap\">";
-      rows[r++] = "<span>" + handicap + "</span>";
-      rows[r++] = "<input type=\"text\" value=\"" + handicap + "\" />";
+      rows[r++] = "<span>" + person.name + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + person.name + "\" />";
       rows[r++] = "</td>";
       
       rows[r++] = "<td class=\"index\">";
-      rows[r++] = "<span>" + index + "</span>";
-      rows[r++] = "<input type=\"text\" value=\"" + index + "\" />";
+      rows[r++] = "<span>" + person.index + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + person.index + "\" />";
+      rows[r++] = "</td>";
+      
+      rows[r++] = "<td class=\"handicap\">";
+      rows[r++] = "<span>" + person.handicap + "</span>";
+      rows[r++] = "<input type=\"text\" value=\"" + person.handicap + "\" />";
       rows[r++] = "</td>";
       
       rows[r++] = "<td class=\"flight\">";
-      rows[r++] = buildFlights(flight);
+      rows[r++] = buildFlights(person.flight);
       rows[r++] = "</td>";
       
       rows[r++] = "</tr>";
@@ -190,29 +204,6 @@ function($, IO, Settings, Util) {
   
   var setCurrentYearData = function(newData) {
     IO.write(Settings.getCurrentYearDataKey(), newData, {json:true});
-  };
-  
-  var testData = function() {
-    return { 
-      "dates":["0401","0408","0415","0422"],
-      "people":{
-        "Hansberger, Debbie":{
-          "handicap":["28","30","29","29"],
-          "index":["24.8","27.3","25.7","25.4"],
-          "flight":["2","2","2","2"]
-        },
-        "Hansberger, Jerry":{
-          "handicap":["13", "", "15",""],
-          "index":["11.2","","14.9",""],
-          "flight":["1","","2","1"]
-        },
-        "Cleaves, Mateen":{
-          "handicap":["", "35","35","35"],
-          "index":["","31.6","31.8","31.7"],
-          "flight":["3","3","3","3"]
-        }
-      }
-    };
   };
   
   var updatePerson = function(name, change, opt) {

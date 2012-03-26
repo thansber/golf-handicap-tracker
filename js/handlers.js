@@ -63,9 +63,11 @@ function($, Architect, Dialogs, Settings) {
         if ($cell.is(".name")) {
           Architect.updatePersonName(name, $this.val());
         } else if ($cell.is(".handicap")) {
-          Architect.updatePerson(name, {handicap:$this.val()});
+          Architect.updatePerson(name, {handicap:$this.val()}, {rebuild:true});
         } else if ($cell.is(".index")) {
-          Architect.updatePerson(name, {index:$this.val()});
+          var newIndex = +($this.val());
+          var newHandicap = parseFloat(newIndex * +Settings.getSlope() / 113).toFixed(1);
+          Architect.updatePerson(name, {index:$this.val(), handicap:newHandicap}, {rebuild:true});
         }
         
         $cell.removeClass("editing");
