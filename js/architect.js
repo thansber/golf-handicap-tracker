@@ -231,6 +231,9 @@ function($, IO, Settings, Util) {
   };
   
   var updatePersonName = function(name, newName) {
+    if (name === newName) {
+      return;
+    }
     var data = getCurrentYearData();
     var personData = data.people[name];
     data.people[newName] = $.extend(true, {}, personData);

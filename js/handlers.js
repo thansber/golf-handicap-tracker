@@ -65,7 +65,7 @@ function($, Architect, Dialogs, Settings) {
         } else if ($cell.is(".handicap")) {
           Architect.updatePerson(name, {handicap:$this.val()}, {rebuild:true});
         } else if ($cell.is(".index")) {
-          var newIndex = parseFloat($this.val());
+          var newIndex = parseFloat($this.val().length === 0 ? "0" : $this.val());
           var newHandicap = Math.round(parseFloat(newIndex * +Settings.getSlope() / 113));
           Architect.updatePerson(name, {index:$this.val(), handicap:newHandicap}, {rebuild:true});
         }
