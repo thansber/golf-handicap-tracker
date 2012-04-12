@@ -49,9 +49,16 @@ function($, Architect, Dialogs, Settings) {
           $cell.find("input").focus().select();
         } else if ($target.is("p.flight")) {
           var name = lookupPersonName($target);
-          $target.siblings().removeClass("selected");
-          $target.addClass("selected");
-          Architect.updatePerson(name, {flight:$target.data("index")}, {rebuild:true});
+          var newFlight = "";
+          
+          if ($target.hasClass("selected")) {
+            $target.removeClass("selected");
+          } else {
+            $target.siblings().removeClass("selected");
+            $target.addClass("selected");
+            newFlight = $target.data("index");
+          }
+          Architect.updatePerson(name, {flight:newFlight}, {rebuild:true});
         }
       });
       
