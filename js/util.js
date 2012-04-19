@@ -1,16 +1,31 @@
 define( /* Util */
 ["jquery"], 
 function($) {
+  
+  var compareIntValues = function(valueA, valueB) {
+    valueA = "" + valueA;
+    valueB = "" + valueB;
+    if (valueA.length === 0) {
+      valueA = 0;
+    }
+    if (valueB.length === 0) {
+      valueB = 0;
+    }
+    return parseFloat(valueA) - parseFloat(valueB);
+  };
+  
   var sortByHandicap = function(a, b) {
-    var handicapA = "" + a.handicap;
-    var handicapB = "" + b.handicap;
-    if (handicapA.length === 0) {
-      handicapA = 0;
+    var s = compareIntValues(a.handicap, b.handicap);
+    
+    if (s === 0) {
+      s = compareIntValues(a.index, b.index);
+      
+      if (s === 0) {
+        s = a.name.localeCompare(b.name);
+      }
     }
-    if (handicapB.length === 0) {
-      handicapB = 0;
-    }
-    return +handicapA - +handicapB;
+    
+    return s;
   };
   
   return {

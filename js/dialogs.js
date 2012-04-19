@@ -245,10 +245,10 @@ function($, Architect, Settings, Util) {
     $content.empty();
     $content.append($("<h2 class=\"title\">Makray Ladies 18 Hole League</h2>"));
     $content.append($("<h2 class=\"date\">" + dateHeader + "</h2>"));
-    $content.append($(flightPeopleToMarkup("Unassigned", peopleByFlight["Unassigned"])));
     $.each(flightNames, function(i, name) {
       $content.append($(flightPeopleToMarkup("Flight " + name, peopleByFlight[name])));
     });
+    $content.append($(flightPeopleToMarkup("Unassigned", peopleByFlight["Unassigned"])));
     
     $dialog.find(".message").hide();
   };
