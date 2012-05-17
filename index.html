@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div id="version">v1.9</div>
+<div id="version">v1.10</div>
 
 <section id="main">
   <div class="dates">
@@ -48,6 +48,8 @@
     <li class="add person">Add person</li>
     <li class="delete date">Delete date</li>
     <li class="delete person">Delete person</li>
+    <li class="export">Export data</li>
+    <li class="import">Import data</li>
     <li class="settings">Settings</li>
   </ul>
 </section>
@@ -151,6 +153,42 @@
       <button class="select all green">Select All</button>
     </div>
   </section>
+  
+  <section class="export dialog">
+    <h1>Export All Data <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">The best way to export this data is by following these steps:</p>
+      <ol class="instructions">
+        <li>Click once within the text box below.</li>
+        <li>Press Ctrl+A or the Select All button to select all of the text.</li>
+        <li>Press Ctrl+C to copy the data to your computer's clipboard.</li>
+        <li>Create a new email that will be sent to whoever you need it to, possibly even yourself.</li>
+        <li>In the body of the email, press Ctrl+V to paste the data to your email.</li>
+      </ol> 
+      <textarea id="exportData" readonly></textarea>
+    </div>
+    <div class="actions">
+      <button class="select all green">Select All</button>
+    </div>
+  </section>
+  
+  <section class="import dialog">
+    <h1>Import All Data <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">If you need to import data, such as from another computer, perform the following steps:</p>
+      <ol class="instructions">
+        <li>You likely have an email or file containing the exported data, open that up.</li>
+        <li>Copy the exported data and paste it into the text box below.</li>
+        <li>Click the Import button, once the data has finished importing, reload the page.</li>
+      </ol> 
+      <textarea id="importData"></textarea>
+    </div>
+    <div class="actions">
+      <button class="import green">Import</button>
+      <p class="done">Import complete</p>
+    </div>
+  </section>
+  
 </section>
 
 <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>

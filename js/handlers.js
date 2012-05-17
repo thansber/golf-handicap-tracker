@@ -3,7 +3,7 @@ define(
 ["jquery", "architect", "dialogs", "settings"], 
 function($, Architect, Dialogs, Settings) {
   
-  var dialogs = ["settings", "add.date", "delete.date", "add.person", "delete.person", "print", "email"];
+  var dialogs = ["settings", "add.date", "delete.date", "add.person", "delete.person", "print", "email", "export", "import"];
   
   var lookupPersonName = function($elem) {
     var $cell = $elem.is("td") ? $elem : $elem.closest("td");
@@ -116,6 +116,8 @@ function($, Architect, Dialogs, Settings) {
         else if ($dialog.is(".settings")) { Dialogs.settings($target); }
         else if ($dialog.is(".print")) { Dialogs.print($target); }
         else if ($dialog.is(".email")) { Dialogs.email($target); }
+        else if ($dialog.is(".export")) { Dialogs["export"].call(null, $target); }
+        else if ($dialog.is(".import")) { Dialogs.import($target); }
         
         return false;
       });

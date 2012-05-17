@@ -176,8 +176,10 @@ function($, Architect, Settings, Util) {
   };
   
   var showMessage = function(msg, $button, parent) {
-    $button.closest(".dialog").find(".message").fadeOut("fast");
-    $button.closest(parent ? "." + parent : ".content").find(".message").hide().empty().html(msg).fadeIn("fast");
+    $button.closest(".dialog").find(".message").hide();
+    var $message = $button.closest(parent ? "." + parent : ".content").find(".message");
+    $message.text(msg);
+    $message.show(); //fadeIn("fast");
   };
   
   var slopeSave = function($button) {
@@ -263,6 +265,9 @@ function($, Architect, Settings, Util) {
     
     $("#emailText").text(text);
   };
+  showCallbacks["export"] = function($dialog) {
+    $("#exportData").text(Settings.dump());
+  };
   
   return {
     dates : function($button) {
@@ -286,9 +291,24 @@ function($, Architect, Settings, Util) {
       }
     },
     
+    "export": function($button) {
+      if ($button.is(".select.all")) {
+        $("#exportData").focus().select();
+      }
+    },
+    
     hide : function() {
       $("#dialogs").find(".dialog").removeClass("displayed");
       $("body").removeClass("dialog");
+    },
+    
+    import: function($button) {
+      if ($button.is(".import")) {
+        var $done = $button.siblings(".done");
+        $done.removeClass("displayed");
+        Settings.import();
+        $done.addClass("displayed");
+      }
     },
     
     people : function($button) {

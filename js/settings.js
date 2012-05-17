@@ -8,6 +8,7 @@ function($, IO) {
   var numFlights = 0;
   var slope = 0;
   
+  var ALL_KEYS = [];
   var ALL_YEARS_KEY = "GOLF_TRACKER_ALL_YEARS";
   var CURRENT_YEAR_KEY = "GOLF_TRACKER_CURRENT_YEAR";
   var CURRENT_DATE_KEY = "GOLF_TRACKER_CURRENT_DATE";
@@ -28,6 +29,14 @@ function($, IO) {
   
   return {
     addYear : addYear,
+    dump : function() {
+      var allData = {};
+      
+      for (var i = 0; i < ALL_KEYS.length; i++) {
+        allData[ALL_KEYS[i]] = IO.read(ALL_KEYS[i], {json:ALL_KEYS[i] !== CURRENT_DATE_KEY});
+      }
+      return JSON.stringify(allData);
+    },
     getAllYears : function() { return allYears; },
     getCurrentDate : function() { return currentDate; },
     getCurrentYear : function() { return currentYear; },
@@ -42,6 +51,16 @@ function($, IO) {
     },
     getNumFlights : function() { return numFlights; },
     getSlope: function() { return slope; },
+    import : function() {
+      var data = $("#importData").val();
+      if (!data) {
+        return;
+      }
+      var json = JSON.parse(data);
+      for (var i = 0; i < ALL_KEYS.length; i++) {
+        IO.write(ALL_KEYS[i], json[ALL_KEYS[i]], {json:ALL_KEYS[i] !== CURRENT_DATE_KEY});
+      }
+    },
     init : function() {
       currentYear = IO.read(CURRENT_YEAR_KEY);
       if (!currentYear) {
@@ -57,6 +76,9 @@ function($, IO) {
       allYears = allYears === null ? [] : allYears;
       numFlights = numFlights === null ? 0 : numFlights;
       slope = slope === null ? 0 : slope;
+      
+      ALL_KEYS = [ALL_YEARS_KEY, CURRENT_YEAR_KEY, CURRENT_DATE_KEY, NUM_FLIGHTS_KEY, SLOPE_KEY];
+      ALL_KEYS.push(CURRENT_YEAR_DATA_KEY + currentYear);
     },
     isSetup : function() { return numFlights > 0 && slope > 0; },
     setCurrentDate : function(date) { IO.write(CURRENT_DATE_KEY, date); currentDate = date; },

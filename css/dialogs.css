@@ -150,7 +150,7 @@
 /* --------- Print preview dialog --------- */
 /* ======================================== */
 #dialogs .print {
-    height: 100%;    
+    height: 100%;
 }
 
 #dialogs .print h2 {
@@ -216,3 +216,51 @@
     top: 4.5em;
     right: 1em;
 }
+
+/* ================================= */
+/* --------- Export dialog --------- */
+/* ================================= */
+#dialogs .export ol.instructions {
+    margin: 1.4em;
+}
+
+#dialogs .export #exportData {
+    height: 20em;
+    width: 95%;
+}
+
+#dialogs .export .actions {
+    position: absolute;
+    top: 4.5em;
+    right: 1em;
+}
+
+/* ================================= */
+/* --------- Import dialog --------- */
+/* ================================= */
+#dialogs .import ol.instructions {
+    margin: 1.4em;
+}
+
+#dialogs .import #importData {
+    height: 20em;
+    width: 95%;
+}
+
+#dialogs .import .actions {
+    position: absolute;
+    top: 4.5em;
+    right: 1em;
+    text-align: right;   
+}
+
+#dialogs .import .actions .done {
+    color: #4c9335;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#dialogs .import .actions .done.displayed {
+    opacity: 1;
+}
+
