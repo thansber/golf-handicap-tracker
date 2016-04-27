@@ -21,7 +21,7 @@
       <button class="delete date">Delete</button>
     </div>
   </div>
-  
+
   <div class="scores">
     <h6 class="tableheader"></h6>
     <table class="people">
@@ -41,7 +41,7 @@
 <section id="menu" class="displayed show">
   <h1>Menu</h1>
   <div class="arrow left"></div>
-  
+
   <ul class="options">
     <li class="print">Print Preview</li>
     <li class="email">Email Flight Rosters</li>
@@ -57,61 +57,61 @@
 
 <section id="dialogs" class="hidden">
   <div class="background"></div>
-  
+
   <section class="add date dialog">
     <h1>Add new date <a class="close">X</a></h1>
     <div class="content">
-      <p class="instructions">Select a month and day from the drop-downs, then click Save to add a new date.</p> 
+      <p class="instructions">Select a month and day from the drop-downs, then click Save to add a new date.</p>
       <p class="instructions">These dates will only be added for the currently selected year, <span class="currentYear"></span>.</p>
-      
+
       <select id="newDateMonth"><option value="">-- Month --</option></select>
       <select id="newDateDay"><option value="">-- Day --</option></select>
       <button class="save date green">Save</button>
       <label class="save message"></label>
     </div>
   </section>
-  
+
   <section class="delete date dialog">
     <h1>Delete date <a class="close">X</a></h1>
     <div class="content">
-      <p class="instructions">Select a date from the drop-down, then click Delete.</p> 
+      <p class="instructions">Select a date from the drop-down, then click Delete.</p>
       <p class="instructions">The date will be removed along with all handicap and index values entered for that date,
-      but only for the currently selected year, <span class="currentYear"></span>.</p> 
-    
+      but only for the currently selected year, <span class="currentYear"></span>.</p>
+
       <select id="deleteDate"><option value="">-- Date --</option></select>
       <button class="delete date red">Delete</button>
       <label class="delete message"></label>
     </div>
   </section>
-  
+
   <section class="add person dialog">
     <h1>Add Person <a class="close">X</a></h1>
     <div class="content">
-      <p class="instructions">Enter the name of the person you wish to add, then click Save.</p> 
-    
+      <p class="instructions">Enter the name of the person you wish to add, then click Save.</p>
+
       <input type="text" id="newPerson" value="" />
       <button class="save person green">Save</button>
       <label class="save message"></label>
     </div>
   </section>
-  
+
   <section class="delete person dialog">
     <h1>Delete Person <a class="close">X</a></h1>
     <div class="content">
-      <p class="instructions">Select the name of the person you wish to delete, then click Delete.</p> 
-      <p class="instructions">All handicap and index values associated with this person will be deleted for all dates.</p> 
-    
+      <p class="instructions">Select the name of the person you wish to delete, then click Delete.</p>
+      <p class="instructions">All handicap and index values associated with this person will be deleted for all dates.</p>
+
       <select id="deletePerson"><option value="">-- Person --</option></select>
       <button class="delete person red">Delete</button>
       <label class="delete message"></label>
     </div>
   </section>
-  
+
   <section class="settings dialog">
     <h1>Settings <a class="close">X</a></h1>
     <div class="content">
-      <p class="instructions">These are settings for this application that once setup, will likely not change often.</p> 
-    
+      <p class="instructions">These are settings for this application that once setup, will likely not change often.</p>
+
       <div class="setting">
         <label for="selectYear">Select the year you want to use:</label>
         <select id="selectYear"><option value="">-- Year --</option></select>
@@ -132,7 +132,7 @@
       </div>
     </div>
   </section>
-  
+
   <section class="print dialog">
     <h1>Print Preview <a class="close">X</a></h1>
     <div class="content"></div>
@@ -140,7 +140,7 @@
       <button class="print green">Print</button>
     </div>
   </section>
-  
+
   <section class="email dialog">
     <h1>Email Flight Rosters <a class="close">X</a></h1>
     <div class="content">
@@ -154,7 +154,7 @@
       <button class="select all green">Select All</button>
     </div>
   </section>
-  
+
   <section class="export dialog">
     <h1>Export All Data <a class="close">X</a></h1>
     <div class="content">
@@ -165,14 +165,14 @@
         <li>Press Ctrl+C to copy the data to your computer's clipboard.</li>
         <li>Create a new email that will be sent to whoever you need it to, possibly even yourself.</li>
         <li>In the body of the email, press Ctrl+V to paste the data to your email.</li>
-      </ol> 
+      </ol>
       <textarea id="exportData" readonly></textarea>
     </div>
     <div class="actions">
       <button class="select all green">Select All</button>
     </div>
   </section>
-  
+
   <section class="import dialog">
     <h1>Import All Data <a class="close">X</a></h1>
     <div class="content">
@@ -181,7 +181,7 @@
         <li>You likely have an email or file containing the exported data, open that up.</li>
         <li>Copy the exported data and paste it into the text box below.</li>
         <li>Click the Import button, once the data has finished importing, reload the page.</li>
-      </ol> 
+      </ol>
       <textarea id="importData"></textarea>
     </div>
     <div class="actions">
@@ -189,7 +189,7 @@
       <p class="done">Import complete</p>
     </div>
   </section>
-  
+
 </section>
 
 <script type="text/javascript" src="js/lib/prefixfree.min.js"></script>

@@ -47,3 +47,10 @@
 #dialogs .print.dialog .actions {
     display: none;
 }
+
+#dialogs .settings.dialog,
+#dialogs .email.dialog,
+#dialogs .export.dialog,
+#dialogs .import.dialog {
+    display: none;
+}
