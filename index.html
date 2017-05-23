@@ -49,6 +49,7 @@
     <li class="add person">Add person</li>
     <li class="delete date">Delete date</li>
     <li class="delete person">Delete person</li>
+    <li class="rename flights">Rename flights</li>
     <li class="export">Export data</li>
     <li class="import">Import data</li>
     <li class="settings">Settings</li>
@@ -104,6 +105,19 @@
       <select id="deletePerson"><option value="">-- Person --</option></select>
       <button class="delete person red">Delete</button>
       <label class="delete message"></label>
+    </div>
+  </section>
+
+  <section class="rename flights dialog">
+    <h1>Rename Flights <a class="close">X</a></h1>
+    <div class="content">
+      <p class="instructions">Click on a flight name to rename it, then click Save.</p>
+      <div class="flightNames"></div>
+      <div class="actions">
+        <button class="cancel person red hidden">Cancel</button>
+        <button class="save person green hidden">Save</button>
+        <label class="rename message"></label>
+      </div>
     </div>
   </section>
 
