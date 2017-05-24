@@ -182,14 +182,19 @@
     width: 50%;
 }
 
-#dialogs .print .flight th,#dialogs .print .flight td {
+#dialogs .print .flight th,
+#dialogs .print .flight td {
     border: 0;
     padding: 0.1em 0.4em;
     text-align: left;
 }
 
+#dialogs .print .flight .name {
+    width: 40%;
+}
+
 #dialogs .print .flight .number {
-    text-align: right;
+    text-align: center;
     width: 1em;
 }
 

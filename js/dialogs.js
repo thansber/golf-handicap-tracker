@@ -89,7 +89,13 @@ function($, Architect, Settings, Util) {
     people.sort(Util.sortByHandicap());
 
     markup[m++] = "<table class=\"flight\">";
-    markup[m++] = "<thead><tr><th></th><th>" + flight + "</th><th>Index</th><th>Handicap</th></tr></thead>";
+    markup[m++] = "<thead><tr>";
+    markup[m++] = "<th class=\"number\"></th>";
+    markup[m++] = "<th class=\"name\">" + flight + "</th>";
+    markup[m++] = "<th class=\"index\">Index</th>";
+    markup[m++] = "<th class=\"handicap\">Handicap</th>";
+    markup[m++] = "</tr></thead>";
+
     markup[m++] = "<tbody>";
     $.each(people, function(i, person) {
       markup[m++] = "<tr>";
