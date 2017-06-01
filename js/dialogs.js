@@ -282,16 +282,18 @@ function($, Architect, Settings, Util) {
     var flightNames = Settings.getFlightNames();
     var $flights = $dialog.find('.flightNames');
     var markup = '';
+    var name;
 
     if (!keepMessage) {
       $dialog.find('.message').hide();
     }
 
     $flights.empty();
-    $.each(flightNames, function(i, name) {
+    for (var i = 0, n = Settings.getNumFlights(); i < n; i++) {
+      name = flightNames[i] || '';
       markup = '<div><button class="flight">' + name + '</button><input value="' + name + '" /></div>';
       $flights.append($(markup));
-    });
+    };
   };
 
   return {
